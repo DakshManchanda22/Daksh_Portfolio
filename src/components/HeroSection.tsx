@@ -62,7 +62,7 @@ const HeroSection = () => {
 
           {/* Right side - Image placeholder */}
           <div className={`fade-in ${isVisible ? 'visible' : ''} flex justify-center lg:justify-end`}>
-            <div className="profile-placeholder group hover:scale-105 transition-transform duration-500 overflow-hidden rounded-full w-40 h-40 bg-muted">
+            <div className="profile-placeholder group hover:scale-105 transition-transform duration-500 overflow-hidden rounded-xl w-48 h-32 bg-muted">
               <img
                 src={dakshPhoto}
                 alt="Daksh Manchanda"
