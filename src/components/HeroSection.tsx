@@ -18,7 +18,7 @@ const HeroSection = () => {
       </div>
 
       <div className="portfolio-section">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
           {/* Left side - Content */}
           <div className={`stagger-children ${isVisible ? 'visible' : ''} space-y-8`}>
             <div>
@@ -62,7 +62,7 @@ const HeroSection = () => {
 
           {/* Right side - Image placeholder */}
           <div className={`fade-in ${isVisible ? 'visible' : ''} flex justify-center lg:justify-end`}>
-            <div className="profile-placeholder group hover:scale-105 transition-transform duration-500 overflow-hidden rounded-xl w-64 h-96 bg-muted">
+            <div className="profile-placeholder group hover:scale-105 transition-transform duration-500 overflow-hidden rounded-xl w-80 h-[32rem] bg-muted">
               <img
                 src={dakshPhoto}
                 alt="Daksh Manchanda"
