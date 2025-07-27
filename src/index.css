@@ -1,0 +1,267 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Light mode colors */
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+
+    --primary: 220 70% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 220 70% 60%;
+
+    /* Custom portfolio colors */
+    --soft-blue: 220 70% 95%;
+    --soft-purple: 260 60% 95%;
+    --soft-pink: 320 60% 95%;
+    --soft-green: 150 60% 95%;
+    --soft-orange: 35 80% 92%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(220 70% 60%), hsl(260 60% 65%));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(220 20% 98%));
+    --gradient-hero: linear-gradient(135deg, hsl(0 0% 100%), hsl(220 20% 99%));
+
+    /* Shadows */
+    --shadow-soft: 0 4px 20px -2px hsl(220 20% 85% / 0.3);
+    --shadow-card: 0 8px 30px -4px hsl(220 20% 80% / 0.2);
+    --shadow-hover: 0 12px 40px -4px hsl(220 70% 60% / 0.15);
+    --shadow-glow: 0 0 0 1px hsl(220 70% 60% / 0);
+
+    /* Dot grid pattern */
+    --dot-color: hsl(240 5% 90%);
+    --dot-size: 1px;
+    --dot-spacing: 24px;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+
+    /* Dark mode specific colors */
+    --soft-blue: 220 50% 20%;
+    --soft-purple: 260 40% 20%;
+    --soft-pink: 320 40% 20%;
+    --soft-green: 150 40% 20%;
+    --soft-orange: 35 60% 20%;
+
+    /* Dark mode gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(220 70% 60%), hsl(260 60% 65%));
+    --gradient-card: linear-gradient(145deg, hsl(240 10% 3.9%), hsl(240 8% 8%));
+    --gradient-hero: linear-gradient(135deg, hsl(240 10% 3.9%), hsl(240 8% 6%));
+
+    /* Dark mode shadows with glow */
+    --shadow-soft: 0 4px 20px -2px hsl(0 0% 0% / 0.4);
+    --shadow-card: 0 8px 30px -4px hsl(0 0% 0% / 0.3);
+    --shadow-hover: 0 12px 40px -4px hsl(0 0% 0% / 0.4);
+    --shadow-glow: 0 0 0 1px hsl(220 70% 60% / 0.3), 0 0 20px hsl(220 70% 60% / 0.2);
+
+    /* Dark dot grid */
+    --dot-color: hsl(240 5% 25%);
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    background: 
+      radial-gradient(circle at var(--dot-spacing) var(--dot-spacing), var(--dot-color) var(--dot-size), transparent var(--dot-size)),
+      var(--gradient-hero);
+    background-size: var(--dot-spacing) var(--dot-spacing);
+    min-height: 100vh;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Portfolio card component */
+  .portfolio-card {
+    @apply bg-card/50 backdrop-blur-sm rounded-xl p-6 transition-all duration-500 ease-out border border-border/50;
+    background: var(--gradient-card);
+    box-shadow: var(--shadow-card);
+  }
+
+  .portfolio-card:hover {
+    box-shadow: var(--shadow-hover), var(--shadow-glow);
+    transform: translateY(-4px) scale(1.02);
+  }
+
+  /* Dark mode glow effect for cards */
+  .dark .portfolio-card:hover {
+    box-shadow: var(--shadow-hover), var(--shadow-glow);
+  }
+
+  /* Section spacing */
+  .portfolio-section {
+    @apply py-16 px-4 max-w-6xl mx-auto;
+  }
+
+  /* Hero section specific styling */
+  .hero-container {
+    @apply min-h-screen flex items-center justify-center relative;
+    background: var(--gradient-hero);
+  }
+
+  /* Fade in animation */
+  .fade-in {
+    @apply opacity-0 translate-y-8 transition-all duration-700 ease-out;
+  }
+
+  .fade-in.visible {
+    @apply opacity-100 translate-y-0;
+  }
+
+  /* Stagger animation for children */
+  .stagger-children > * {
+    @apply opacity-0 translate-y-4 transition-all duration-500 ease-out;
+  }
+
+  .stagger-children.visible > *:nth-child(1) { transition-delay: 0ms; @apply opacity-100 translate-y-0; }
+  .stagger-children.visible > *:nth-child(2) { transition-delay: 100ms; @apply opacity-100 translate-y-0; }
+  .stagger-children.visible > *:nth-child(3) { transition-delay: 200ms; @apply opacity-100 translate-y-0; }
+  .stagger-children.visible > *:nth-child(4) { transition-delay: 300ms; @apply opacity-100 translate-y-0; }
+  .stagger-children.visible > *:nth-child(5) { transition-delay: 400ms; @apply opacity-100 translate-y-0; }
+
+  /* Gradient text */
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Theme toggle component */
+  .theme-toggle {
+    @apply relative inline-flex h-6 w-11 items-center rounded-full transition-colors;
+    @apply bg-secondary border border-border;
+  }
+
+  .theme-toggle[data-state="checked"] {
+    @apply bg-primary;
+  }
+
+  .theme-toggle-thumb {
+    @apply inline-block h-4 w-4 transform rounded-full bg-background transition-transform;
+    @apply translate-x-1;
+  }
+
+  .theme-toggle[data-state="checked"] .theme-toggle-thumb {
+    @apply translate-x-6;
+  }
+
+  /* Profile image placeholder */
+  .profile-placeholder {
+    @apply w-80 h-80 rounded-2xl bg-gradient-to-br from-soft-blue to-soft-purple;
+    @apply flex items-center justify-center text-6xl text-muted-foreground;
+    @apply border border-border/50 shadow-lg;
+  }
+
+  /* Skills badges */
+  .skill-badge {
+    @apply px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-300;
+    @apply bg-soft-blue/50 text-foreground border border-border/30;
+  }
+
+  .skill-badge:hover {
+    @apply scale-105 shadow-md;
+  }
+
+  /* Experience timeline */
+  .timeline-item {
+    @apply relative pl-8 pb-8;
+  }
+
+  .timeline-item::before {
+    @apply absolute left-0 top-2 w-3 h-3 rounded-full bg-primary;
+    content: '';
+  }
+
+  .timeline-item::after {
+    @apply absolute left-1.5 top-5 w-0.5 h-full bg-border;
+    content: '';
+  }
+
+  .timeline-item:last-child::after {
+    @apply hidden;
+  }
+}
