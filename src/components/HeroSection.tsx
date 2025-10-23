@@ -1,80 +1,119 @@
 import { useEffect, useState } from 'react';
-import { Github, Linkedin, Mail, ArrowDown, User } from 'lucide-react';
-import ThemeToggle from './ThemeToggle';
-import dakshPhoto from '@/assets/dakshphoto.jpg';
+import dakshPhoto from '@/assets/dakshphoto.png';
+
+const words = ['Creator', 'Coder', 'Student', 'Designer'];
 
 const HeroSection = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [typewriterText, setTypewriterText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [wordIndex, setWordIndex] = useState(0);
+  const [showCursor, setShowCursor] = useState(true);
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
+  // Typewriter effect
+  useEffect(() => {
+    const currentWord = words[wordIndex];
+    const typingSpeed = isDeleting ? 50 : 100;
+    const pauseTime = isDeleting ? 500 : 2000;
+
+    const timer = setTimeout(() => {
+      if (!isDeleting) {
+        // Typing
+        if (typewriterText.length < currentWord.length) {
+          setTypewriterText(currentWord.slice(0, typewriterText.length + 1));
+        } else {
+          // Pause before deleting
+          setTimeout(() => setIsDeleting(true), pauseTime);
+        }
+      } else {
+        // Deleting
+        if (typewriterText.length > 0) {
+          setTypewriterText(typewriterText.slice(0, -1));
+        } else {
+          // Move to next word
+          setIsDeleting(false);
+          setWordIndex((prev) => (prev + 1) % words.length);
+        }
+      }
+    }, typingSpeed);
+
+    return () => clearTimeout(timer);
+  }, [typewriterText, isDeleting, wordIndex]);
+
+  // Cursor blink effect
+  useEffect(() => {
+    const cursorTimer = setInterval(() => {
+      setShowCursor((prev) => !prev);
+    }, 500);
+
+    return () => clearInterval(cursorTimer);
+  }, []);
+
   return (
-    <section className="hero-container overflow-hidden">
-      {/* Theme Toggle */}
-      <div className="absolute top-6 right-6 z-10">
-        <ThemeToggle />
-      </div>
+    <section className="hero-grainy">
+      {/* SVG Filter for Grainy Texture */}
+      <svg style={{ position: 'absolute', width: 0, height: 0 }}>
+        <defs>
+          <filter id="grainy">
+            <feTurbulence type="turbulence" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
+            <feColorMatrix type="saturate" values="0" />
+            <feComponentTransfer>
+              <feFuncA type="discrete" tableValues="1 1" />
+            </feComponentTransfer>
+            <feBlend mode="multiply" in="SourceGraphic" />
+          </filter>
+        </defs>
+      </svg>
 
-      <div className="portfolio-section">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-          {/* Left side - Content */}
-          <div className={`stagger-children ${isVisible ? 'visible' : ''} space-y-8`}>
-            <div>
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-light mb-4 tracking-tight">
-                <span className="gradient-text">Daksh Manchanda</span>
-              </h1>
-              <div className="w-24 h-1 bg-gradient-to-r from-primary to-transparent mb-6"></div>
-            </div>
-            
-            <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground leading-relaxed font-light max-w-2xl">
-              CS student at <span className="text-primary font-medium">VIT Vellore</span> blending technology and creativity. 
-              I build tools, tell visual stories, and explore everything in between.
-            </p>
-            
-            <div className="flex gap-4">
-              <a 
-                href="mailto:daksh.manchanda22@gmail.com" 
-                className="p-4 rounded-xl bg-soft-blue hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110 hover:shadow-lg"
-                aria-label="Email"
-              >
-                <Mail size={24} />
-              </a>
-              <a 
-                href="https://www.linkedin.com/in/dakshmanchanda" 
-                className="p-4 rounded-xl bg-soft-purple hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110 hover:shadow-lg"
-                aria-label="LinkedIn"
-                target="_blank" rel="noopener noreferrer"
-              >
-                <Linkedin size={24} />
-              </a>
-              <a 
-                href="https://github.com/DakshManchanda22" 
-                className="p-4 rounded-xl bg-soft-pink hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110 hover:shadow-lg"
-                aria-label="GitHub"
-                target="_blank" rel="noopener noreferrer"
-              >
-                <Github size={24} />
-              </a>
-            </div>
-          </div>
+      {/* Top Left Link */}
+      <a 
+        href="#" 
+        className="hero-top-left-text"
+        onClick={(e) => {
+          e.preventDefault();
+          // Link will be added later
+        }}
+      >
+        Something else
+      </a>
 
-          {/* Right side - Image placeholder */}
-          <div className={`fade-in ${isVisible ? 'visible' : ''} flex justify-center lg:justify-end`}>
-            <div className="profile-placeholder group hover:scale-105 transition-transform duration-500 overflow-hidden rounded-xl w-80 h-[32rem] bg-muted">
-              <img
-                src={dakshPhoto}
-                alt="Daksh Manchanda"
-                className="object-cover w-full h-full"
-              />
-            </div>
-          </div>
+      {/* Top Right Download CV Button */}
+      <a 
+        href="/Daksh_Resume.pdf" 
+        download="Daksh_Resume.pdf"
+        className="hero-top-right-btn"
+      >
+        Download CV
+      </a>
+
+      {/* Main Content */}
+      <div className={`hero-grainy-content ${isVisible ? 'visible' : ''}`}>
+        {/* Typewriter Text Above Name */}
+        <div className="typewriter-container">
+          <span className="typewriter-text">
+            I am a <span className="typewriter-word">{typewriterText}</span>
+            <span className={`typewriter-cursor ${showCursor ? 'visible' : ''}`}>|</span>
+          </span>
         </div>
-      </div>
-      
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <ArrowDown className="text-muted-foreground" size={24} />
+
+        {/* Large Background Text */}
+        <div className="hero-name-bg">
+          <div className="hero-name-line">DAKSH</div>
+          <div className="hero-name-line">MANCHANDA</div>
+        </div>
+
+        {/* Centered Photo */}
+        <div className="hero-photo-center">
+          <img
+            src={dakshPhoto}
+            alt="Daksh Manchanda"
+            className="hero-photo-img"
+          />
+        </div>
       </div>
     </section>
   );

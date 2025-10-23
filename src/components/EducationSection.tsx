@@ -1,52 +1,42 @@
-import SectionWrapper from './SectionWrapper';
-import { GraduationCap } from 'lucide-react';
-
 const EducationSection = () => {
   const education = [
     {
+      degree: "B.Tech in Computer Science",
       institution: "VIT Vellore",
-      degree: "B.Tech CSE",
-      period: "2023–2027",
-      color: "bg-soft-blue"
+      period: "2023 — 2027",
+      description: "Pursuing comprehensive education in computer science fundamentals, algorithms, and software development."
     },
     {
+      degree: "Higher Secondary Education",
       institution: "Pace Junior Science College, Mumbai",
-      degree: "Higher Secondary",
-      period: "2023",
-      color: "bg-soft-purple"
+      period: "2021 — 2023",
+      description: "Focused on science stream with emphasis on mathematics and computer applications."
     },
     {
+      degree: "Secondary Education (ICSE)",
       institution: "Sri Sri Academy, Kolkata",
-      degree: "ICSE",
-      period: "2021",
-      color: "bg-soft-pink"
+      period: "2019 — 2021",
+      description: "Completed ICSE board examinations with strong foundation in core subjects and extracurricular activities."
     }
   ];
 
   return (
-    <SectionWrapper>
-      <section className="portfolio-section">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-light mb-4 gradient-text">Education</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Building a strong foundation in computer science and technology
-          </p>
-        </div>
+    <section id="education" className="education-grid-section">
+      <div className="education-grid-container">
+        <h2 className="education-grid-title">EDUCATION</h2>
         
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="education-grid">
           {education.map((edu, index) => (
-            <div key={index} className="portfolio-card group">
-              <div className={`${edu.color} w-12 h-12 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                <GraduationCap size={24} className="text-foreground" />
-              </div>
-              <h3 className="text-lg font-medium mb-2">{edu.institution}</h3>
-              <p className="text-muted-foreground mb-1">{edu.degree}</p>
-              <p className="text-primary font-medium">{edu.period}</p>
+            <div key={index} className="education-grid-item">
+              <h3 className="education-degree">{edu.degree}</h3>
+              <p className="education-institution">{edu.institution}</p>
+              <p className="education-period">{edu.period}</p>
+              <p className="education-description">{edu.description}</p>
             </div>
           ))}
         </div>
-      </section>
-    </SectionWrapper>
+      </div>
+    </section>
   );
 };
 

@@ -1,4 +1,4 @@
-import SectionWrapper from './SectionWrapper';
+import { useEffect, useRef, useState } from 'react';
 
 const ExperienceSection = () => {
   const experiences = [
@@ -6,60 +6,108 @@ const ExperienceSection = () => {
       title: "Senior Core",
       company: "Entrepreneurship Cell, VIT",
       period: "2025 – Now",
-      description: "Leading entrepreneurial initiatives and fostering startup culture at university level."
+      description: "Leading entrepreneurial initiatives and fostering startup culture at university level. Organizing events, mentoring startups, and building a thriving entrepreneurial ecosystem."
     },
     {
       title: "Content Creator",
       company: "YouTube",
       period: "2020 – Now",
-      description: "Creating educational and tech-related content, building community engagement."
+      description: "Creating educational and tech-related content, building community engagement. Producing tutorials, reviews, and insights that help viewers learn and grow."
     },
     {
       title: "Social Media Intern",
       company: "MyPerro",
       period: "2024 – 2025",
-      description: "Managed social media strategy and content creation for pet care startup."
+      description: "Managed social media strategy and content creation for pet care startup. Developed campaigns that increased engagement and brand awareness significantly."
     },
     {
       title: "Student Volunteer",
       company: "Riviera, VIT",
       period: "Feb 2025",
-      description: "Contributed to organizing VIT's annual cultural festival."
+      description: "Contributed to organizing VIT's annual cultural festival. Coordinated events, managed logistics, and ensured smooth execution of multiple activities."
     }
   ];
 
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+
+      const sectionTop = sectionRef.current.getBoundingClientRect().top;
+      const windowHeight = window.innerHeight;
+      
+      // Calculate scroll progress (0 to 1 for each card)
+      const progress = Math.max(0, (windowHeight - sectionTop - 200) / 300);
+      
+      setScrollProgress(progress);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial check
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <SectionWrapper>
-      <section className="portfolio-section">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-light mb-4 gradient-text">Experience</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Professional journey and key roles that shaped my skills
-          </p>
-        </div>
-        
-        <div className="max-w-4xl mx-auto">
-          <div className="relative">
-            {experiences.map((exp, index) => (
-              <div key={index} className="timeline-item">
-                <div className="portfolio-card">
-                  <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start mb-3">
-                    <div>
-                      <h3 className="text-xl font-medium text-foreground mb-1">{exp.title}</h3>
-                      <p className="text-lg text-primary font-medium">{exp.company}</p>
-                    </div>
-                    <span className="text-sm text-muted-foreground mt-2 lg:mt-0 px-3 py-1 bg-soft-blue rounded-full">
-                      {exp.period}
-                    </span>
-                  </div>
-                  <p className="text-muted-foreground leading-relaxed">{exp.description}</p>
-                </div>
+    <section id="experience" className="experience-ladder-section" ref={sectionRef}>
+      {/* SVG Filter for Grainy Texture */}
+      <svg style={{ position: 'absolute', width: 0, height: 0 }}>
+        <defs>
+          <filter id="grainy">
+            <feTurbulence type="turbulence" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
+            <feColorMatrix type="saturate" values="0" />
+            <feComponentTransfer>
+              <feFuncA type="discrete" tableValues="1 1" />
+            </feComponentTransfer>
+            <feBlend mode="multiply" in="SourceGraphic" />
+          </filter>
+        </defs>
+      </svg>
+
+      <div className="experience-header">
+        <h2 className="experience-title">Experience</h2>
+        <p className="experience-subtitle">
+          Professional journey and key roles that shaped my skills
+        </p>
+      </div>
+
+      <div className="experience-container">
+        {experiences.map((exp, index) => {
+          // Calculate when this card should start moving (each card waits for previous)
+          const cardStartProgress = index;
+          const cardProgress = Math.max(0, Math.min(1, scrollProgress - cardStartProgress));
+          
+          // Determine if card is settled
+          const isSettled = cardProgress >= 1;
+          const isActive = cardProgress > 0 && cardProgress < 1;
+          
+          return (
+            <div
+              key={index}
+              className={`experience-ladder-item ${isSettled ? 'settled' : ''} ${isActive ? 'active' : ''}`}
+              style={{
+                '--card-index': index,
+                '--card-progress': cardProgress
+              } as React.CSSProperties}
+            >
+              {/* Left Card */}
+              <div className="experience-card-left">
+                <h3 className="experience-card-title">{exp.title}</h3>
+                <p className="experience-card-company">{exp.company}</p>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    </SectionWrapper>
+
+              {/* Right Details */}
+              <div className="experience-details-right">
+                <span className="experience-period">{exp.period}</span>
+                <p className="experience-description">{exp.description}</p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
   );
 };
 

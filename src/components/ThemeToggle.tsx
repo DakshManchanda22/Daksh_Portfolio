@@ -12,14 +12,9 @@ const ThemeToggle = () => {
 
   if (!mounted) {
     return (
-      <div className="flex items-center gap-2 p-1 rounded-full bg-secondary border border-border w-20 h-10">
-        <div className="w-4 h-4 opacity-50">
-          <Sun size={16} />
-        </div>
-        <div className="w-4 h-4 opacity-50">
-          <Moon size={16} />
-        </div>
-      </div>
+      <button className="theme-toggle-btn" aria-label="Toggle theme">
+        <Sun size={16} />
+      </button>
     );
   }
 
@@ -28,15 +23,10 @@ const ThemeToggle = () => {
   return (
     <button
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      className="flex items-center gap-2 p-1 rounded-full bg-secondary border border-border hover:bg-accent transition-all duration-300 group"
+      className="theme-toggle-btn"
       aria-label="Toggle theme"
     >
-      <div className={`p-1.5 rounded-full transition-all duration-300 ${!isDark ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground'}`}>
-        <Sun size={16} />
-      </div>
-      <div className={`p-1.5 rounded-full transition-all duration-300 ${isDark ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground'}`}>
-        <Moon size={16} />
-      </div>
+      {isDark ? <Sun size={16} /> : <Moon size={16} />}
     </button>
   );
 };

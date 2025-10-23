@@ -1,5 +1,4 @@
-import SectionWrapper from './SectionWrapper';
-import { Award, Calendar } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
 
 const CertificationsSection = () => {
   const certifications = [
@@ -7,81 +6,100 @@ const CertificationsSection = () => {
       title: "Generative AI Mastermind",
       issuer: "Outskill",
       year: "2025",
-      color: "bg-soft-purple"
+      description: "Advanced training in generative AI models and applications",
+      link: "https://www.linkedin.com/in/dakshmanchanda/details/certifications/1752352355767/single-media-viewer/?profileId=ACoAAEZZ7AsBgPbLl675NI5USNiB65zM4-mAkq4"
     },
     {
       title: "Gen AI Using IBM Watsonx",
       issuer: "IBM",
       year: "2025",
-      color: "bg-soft-blue"
+      description: "Specialized certification in IBM Watsonx AI platform",
+      link: "https://courses.adroitprolearn.skillsnetwork.site/certificates/411fbfc6573b4d8aaa5a821d4a645438"
     }
   ];
 
-  const languages = [
-    { name: "English", level: "Native" },
-    { name: "Hindi", level: "Native" }
-  ];
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(true);
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  // Extended array with first item duplicated at the end for seamless loop
+  const extendedCertifications = [...certifications, certifications[0]];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsTransitioning(true);
+      setCurrentIndex((prevIndex) => prevIndex + 1);
+    }, 4000); // Change card every 4 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    // When we reach the duplicated first item (index = certifications.length)
+    if (currentIndex === certifications.length) {
+      // Wait for the transition to complete
+      setTimeout(() => {
+        setIsTransitioning(false);
+        setCurrentIndex(0); // Jump to real first item without animation
+      }, 600); // Match the CSS transition duration
+    }
+  }, [currentIndex, certifications.length]);
+
+  const handleIndicatorClick = (index: number) => {
+    setIsTransitioning(true);
+    setCurrentIndex(index);
+  };
 
   return (
-    <SectionWrapper>
-      <section className="portfolio-section">
-        <div className="grid md:grid-cols-2 gap-12">
-          {/* Certifications */}
-          <div>
-            <div className="mb-8">
-              <h2 className="text-3xl md:text-4xl font-light mb-4 gradient-text">Certifications</h2>
-              <p className="text-muted-foreground">
-                Continuous learning and skill development
-              </p>
-            </div>
-            
-            <div className="space-y-4">
-              {certifications.map((cert, index) => (
-                <div key={index} className="portfolio-card">
-                  <div className="flex items-start gap-4">
-                    <div className={`${cert.color} w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0`}>
-                      <Award size={24} />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-lg font-medium mb-1">{cert.title}</h3>
-                      <p className="text-primary font-medium mb-2">{cert.issuer}</p>
-                      <div className="flex items-center gap-2 text-muted-foreground text-sm">
-                        <Calendar size={14} />
-                        {cert.year}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          
-          {/* Languages */}
-          <div>
-            <div className="mb-8">
-              <h2 className="text-3xl md:text-4xl font-light mb-4 gradient-text">Languages</h2>
-              <p className="text-muted-foreground">
-                Communication across cultures
-              </p>
-            </div>
-            
-            <div className="space-y-4">
-              {languages.map((lang, index) => (
-                <div key={index} className="portfolio-card">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="text-lg font-medium mb-1">{lang.name}</h3>
-                      <p className="text-muted-foreground">{lang.level}</p>
-                    </div>
-                    <div className="w-3 h-3 bg-soft-green rounded-full"></div>
-                  </div>
-                </div>
-              ))}
-            </div>
+    <section id="certifications" className="certifications-carousel-section">
+      <div className="certifications-carousel-container">
+        <h2 className="certifications-carousel-title">CERTIFICATIONS</h2>
+        
+        <div className="certifications-carousel">
+          <div 
+            ref={trackRef}
+            className="certifications-track"
+            style={{
+              transform: `translateX(-${currentIndex * 100}%)`,
+              transition: isTransitioning ? 'transform 0.6s ease-in-out' : 'none'
+            }}
+          >
+            {extendedCertifications.map((cert, index) => (
+              <div key={index} className="certification-card">
+                <h3 className="certification-title">{cert.title}</h3>
+                <p className="certification-issuer">{cert.issuer}</p>
+                <p className="certification-year">{cert.year}</p>
+                <p className="certification-description">{cert.description}</p>
+                {cert.link && cert.link !== "#" && (
+                  <a 
+                    href={cert.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="certificate-view-btn"
+                  >
+                    View Certificate
+                  </a>
+                )}
+              </div>
+            ))}
           </div>
         </div>
-      </section>
-    </SectionWrapper>
+
+        {/* Indicators */}
+        <div className="carousel-indicators">
+          {certifications.map((_, index) => (
+            <button
+              key={index}
+              className={`carousel-indicator ${
+                (currentIndex % certifications.length) === index ? 'active' : ''
+              }`}
+              onClick={() => handleIndicatorClick(index)}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 };
 

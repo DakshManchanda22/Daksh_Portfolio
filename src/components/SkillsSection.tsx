@@ -1,60 +1,38 @@
-import SectionWrapper from './SectionWrapper';
-import { Code, Wrench, Globe } from 'lucide-react';
-
 const SkillsSection = () => {
-  const skillCategories = [
-    {
-      title: "Languages",
-      icon: <Code size={24} />,
-      skills: ["C++", "Python", "HTML", "CSS", "JavaScript"],
-      color: "bg-soft-blue"
-    },
-    {
-      title: "Frameworks",
-      icon: <Globe size={24} />,
-      skills: ["React.js"],
-      color: "bg-soft-purple"
-    },
-    {
-      title: "Tools",
-      icon: <Wrench size={24} />,
-      skills: ["Git", "GitHub", "Streamlit", "Gemini/OpenAI API"],
-      color: "bg-soft-green"
-    }
+  const skillRows = [
+    // Row 1 - Left to Right
+    ["C++", "Python", "HTML", "CSS", "JavaScript", "React.js"],
+    // Row 2 - Right to Left
+    ["Node.js", "TypeScript", "Git", "GitHub", "Vercel", "Supabase"],
+    // Row 3 - Left to Right
+    ["Streamlit", "Gemini API", "OpenAI API", "Tailwind", "Vite", "MySQL"]
   ];
 
   return (
-    <SectionWrapper>
-      <section className="portfolio-section">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-light mb-4 gradient-text">Technical Skills</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Technologies and tools I use to bring ideas to life
-          </p>
-        </div>
-        
-        <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-          {skillCategories.map((category, index) => (
-            <div key={index} className="portfolio-card">
-              <div className={`${category.color} w-12 h-12 rounded-lg flex items-center justify-center mb-6`}>
-                {category.icon}
-              </div>
-              <h3 className="text-xl font-medium mb-6">{category.title}</h3>
-              <div className="flex flex-wrap gap-3">
-                {category.skills.map((skill, skillIndex) => (
-                  <span 
-                    key={skillIndex}
-                    className="skill-badge"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
+    <section id="skills" className="skills-bubbles-section">
+      <div className="skills-header">
+        <h2 className="skills-title">Technical Skills</h2>
+        <p className="skills-subtitle">Technologies and tools I use to bring ideas to life</p>
+      </div>
+      
+      <div className="skills-rows-container">
+        {skillRows.map((row, rowIndex) => (
+          <div 
+            key={rowIndex} 
+            className={`skill-row ${rowIndex % 2 === 0 ? 'row-ltr' : 'row-rtl'}`}
+          >
+            <div className="skill-track">
+              {/* Double the content for seamless infinite scroll */}
+              {[...row, ...row].map((skill, index) => (
+                <div key={`${skill}-${index}`} className="skill-bubble-horizontal">
+                  {skill}
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </section>
-    </SectionWrapper>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 };
 

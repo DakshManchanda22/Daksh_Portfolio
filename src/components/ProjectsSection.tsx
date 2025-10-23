@@ -1,25 +1,42 @@
-import SectionWrapper from './SectionWrapper';
 import { ExternalLink, Github } from 'lucide-react';
 import titleGeneratorImg from '@/assets/titlegenerator.png';
 import constructionImg from '@/assets/brique.png';
+import hostelManagerImg from '@/assets/hostelmanager.png';
+import medicalBuddyImg from '@/assets/Medicalbuddy.png';
 
 const ProjectsSection = () => {
   const projects = [
     {
-      title: "Your Friendly Title Generator",
-      description: "A Streamlit + Gemini API-based creative title generator that helps users create engaging and unique titles for their content.",
+      title: "Youtube Title Generator",
+      category: "AI Implementation",
       image: titleGeneratorImg,
-      tech: ["Python", "Streamlit", "Gemini API"],
       links: {
         demo: "https://yourfriendlytitlegenerator.streamlit.app/",
         github: "https://github.com/DakshManchanda22/yourfriendlytitlegenerator"
       }
     },
     {
-      title: "Brique & Bois Website",
-      description: "Landing site for a construction startup featuring modern design, responsive layout, and comprehensive company information.",
+      title: "Brique Bois",
+      category: "Brand Website",
       image: constructionImg,
-      tech: ["HTML", "CSS", "JavaScript"],
+      links: {
+        demo: "https://dakshmanchanda22.github.io/Brique-Bois/",
+        github: "https://github.com/DakshManchanda22/Brique-Bois"
+      }
+    },
+    {
+      title: "HostelGrid",
+      category: "Database Management System",
+      image: hostelManagerImg,
+      links: {
+        demo: "https://yourfriendlytitlegenerator.streamlit.app/",
+        github: "https://github.com/divyamagg2005/Hostelocity/tree/divyam"
+      }
+    },
+    {
+      title: "Your Medical Buddy",
+      category: "AI Prediction model",
+      image: medicalBuddyImg,
       links: {
         demo: "https://dakshmanchanda22.github.io/Brique-Bois/",
         github: "https://github.com/DakshManchanda22/Brique-Bois"
@@ -28,61 +45,57 @@ const ProjectsSection = () => {
   ];
 
   return (
-    <SectionWrapper>
-      <section className="portfolio-section">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-light mb-4 gradient-text">Projects</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            A selection of projects that showcase my technical skills and creativity
-          </p>
-        </div>
-        
-        <div className="grid md:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
-            <div key={index} className="portfolio-card group">
-              <div className="overflow-hidden rounded-lg mb-4">
-                <img 
-                  src={project.image} 
-                  alt={project.title}
-                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              
-              <h3 className="text-xl font-medium mb-3">{project.title}</h3>
-              <p className="text-muted-foreground mb-4 leading-relaxed">{project.description}</p>
-              
-              <div className="flex flex-wrap gap-2 mb-4">
-                {project.tech.map((tech, techIndex) => (
-                  <span 
-                    key={techIndex}
-                    className="px-3 py-1 bg-soft-blue text-foreground rounded-full text-sm"
+    <section id="projects" className="projects-grid-section">
+      <div className="projects-grid-container">
+        {projects.map((project, index) => (
+          <div 
+            key={index} 
+            className="project-card-modern"
+          >
+            <div className="project-card-image">
+              <img 
+                src={project.image} 
+                alt={project.title}
+                className="project-img"
+              />
+              <div className="project-overlay"></div>
+            </div>
+            
+            {/* Inner Box with Title */}
+            <div className="project-inner-box">
+              <div className="project-inner-content">
+                <p className="project-category">{project.category}</p>
+                <h3 className="project-title">{project.title}</h3>
+                
+                {/* Buttons - Show on Hover */}
+                <div className="project-buttons">
+                  <a 
+                    href={project.links.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="project-btn"
+                    onClick={(e) => e.stopPropagation()}
                   >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-              
-              <div className="flex gap-4">
-                <a 
-                  href={project.links.demo}
-                  className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
-                >
-                  <ExternalLink size={16} />
-                  Demo
-                </a>
-                <a 
-                  href={project.links.github}
-                  className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
-                >
-                  <Github size={16} />
-                  Code
-                </a>
+                    <ExternalLink size={18} />
+                    <span>Demo</span>
+                  </a>
+                  <a 
+                    href={project.links.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="project-btn"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <Github size={18} />
+                    <span>Code</span>
+                  </a>
+                </div>
               </div>
             </div>
-          ))}
-        </div>
-      </section>
-    </SectionWrapper>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 };
 
