@@ -1722,11 +1722,17 @@ All colors MUST be HSL.
 
   @media (max-width: 768px) {
     .hero-grainy {
-      min-height: 100vh;
+      min-height: auto;
+      padding: 4rem 0;
+    }
+
+    .hero-grainy-content {
+      min-height: auto;
+      padding: 2rem 0;
     }
 
     .hero-name-bg {
-      top: 70%;
+      top: 75%;
       gap: 0.3rem;
     }
 
@@ -1737,10 +1743,11 @@ All colors MUST be HSL.
     .hero-photo-center {
       width: clamp(380px, 60vw, 500px);
       height: clamp(470px, 72vw, 620px);
+      margin-top: 2rem;
     }
 
     .typewriter-container {
-      top: 12%;
+      top: 18%;
     }
 
     .typewriter-text {
@@ -1775,8 +1782,18 @@ All colors MUST be HSL.
   }
 
   @media (max-width: 480px) {
+    .hero-grainy {
+      min-height: auto;
+      padding: 3rem 0 2rem;
+    }
+
+    .hero-grainy-content {
+      min-height: auto;
+      padding: 1rem 0;
+    }
+
     .hero-name-bg {
-      top: 65%;
+      top: 72%;
       gap: 0.2rem;
     }
 
@@ -1787,10 +1804,11 @@ All colors MUST be HSL.
     .hero-photo-center {
       width: clamp(320px, 75vw, 400px);
       height: clamp(400px, 90vw, 500px);
+      margin-top: 1.5rem;
     }
 
     .typewriter-container {
-      top: 10%;
+      top: 15%;
       padding: 0 1rem;
       width: max-content;
       max-width: 90vw;
