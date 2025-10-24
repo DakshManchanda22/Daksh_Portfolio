@@ -24,15 +24,15 @@ const ProjectsSection = () => {
         github: "https://github.com/DakshManchanda22/Brique-Bois"
       }
     },
-    {
-      title: "HostelGrid",
-      category: "Database Management System",
-      image: hostelManagerImg,
-      links: {
-        demo: "https://yourfriendlytitlegenerator.streamlit.app/",
-        github: "https://github.com/divyamagg2005/Hostelocity/tree/divyam"
-      }
-    },
+        {
+          title: "HostelGrid",
+          category: "Database Management System",
+          image: hostelManagerImg,
+          links: {
+            demo: "https://hostelgrid-x2mo.onrender.com/login/",
+            github: "https://github.com/divyamagg2005/Hostelocity/tree/divyam"
+          }
+        },
     {
       title: "Your Medical Buddy",
       category: "AI Prediction model",

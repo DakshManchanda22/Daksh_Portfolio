@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Linkedin, Github } from 'lucide-react';
 import dakshPhoto from '@/assets/dakshphoto.png';
 
 const words = ['Creator', 'Coder', 'Student', 'Designer'];
@@ -71,24 +72,42 @@ const HeroSection = () => {
 
       {/* Top Left Link */}
       <a 
-        href="#" 
+        href="https://dakshmanchanda22.myportfolio.com/" 
+        target="_blank"
+        rel="noopener noreferrer"
         className="hero-top-left-text"
-        onClick={(e) => {
-          e.preventDefault();
-          // Link will be added later
-        }}
       >
-        Something else
+        More of Me
       </a>
 
-      {/* Top Right Download CV Button */}
-      <a 
-        href="/Daksh_Resume.pdf" 
-        download="Daksh_Resume.pdf"
-        className="hero-top-right-btn"
-      >
-        Download CV
-      </a>
+      {/* Top Right Buttons Group */}
+      <div className="hero-top-right-group">
+        <a 
+          href="https://www.linkedin.com/in/dakshmanchanda/" 
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hero-social-btn"
+          aria-label="LinkedIn"
+        >
+          <Linkedin size={18} />
+        </a>
+        <a 
+          href="https://github.com/DakshManchanda22" 
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hero-social-btn"
+          aria-label="GitHub"
+        >
+          <Github size={18} />
+        </a>
+        <a 
+          href="/Daksh_Resume.pdf" 
+          download="Daksh_Resume.pdf"
+          className="hero-top-right-btn"
+        >
+          Download CV
+        </a>
+      </div>
 
       {/* Main Content */}
       <div className={`hero-grainy-content ${isVisible ? 'visible' : ''}`}>
@@ -100,11 +119,17 @@ const HeroSection = () => {
           </span>
         </div>
 
-        {/* Large Background Text */}
-        <div className="hero-name-bg">
-          <div className="hero-name-line">DAKSH</div>
-          <div className="hero-name-line">MANCHANDA</div>
-        </div>
+            {/* Large Background Text - Repeated with mask gradient fade */}
+            <div className="hero-name-bg">
+              <div className="hero-name-line">DAKSH MANCHANDA</div>
+              <div className="hero-name-line">DAKSH MANCHANDA</div>
+              <div className="hero-name-line">DAKSH MANCHANDA</div>
+              <div className="hero-name-line">DAKSH MANCHANDA</div>
+              <div className="hero-name-line">DAKSH MANCHANDA</div>
+              <div className="hero-name-line">DAKSH MANCHANDA</div>
+              <div className="hero-name-line">DAKSH MANCHANDA</div>
+              <div className="hero-name-line">DAKSH MANCHANDA</div>
+            </div>
 
         {/* Centered Photo */}
         <div className="hero-photo-center">
