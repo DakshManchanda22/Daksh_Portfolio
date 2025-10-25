@@ -72,7 +72,7 @@ const HeroSection = () => {
 
       {/* Top Left Link */}
       <a 
-        href="https://dakshmanchanda22.myportfolio.com/" 
+        href="https://photosportfolio-tau.vercel.app/" 
         target="_blank"
         rel="noopener noreferrer"
         className="hero-top-left-text"
