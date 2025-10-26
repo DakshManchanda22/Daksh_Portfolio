@@ -29,7 +29,7 @@ const ProjectsSection = () => {
           category: "Database Management System",
           image: hostelManagerImg,
           links: {
-            demo: "https://hostelgrid-x2mo.onrender.com/login/",
+            demo: "https://hostelgrid.onrender.com",
             github: "https://github.com/divyamagg2005/Hostelocity/tree/divyam"
           }
         },
